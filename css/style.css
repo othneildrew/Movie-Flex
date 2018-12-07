@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* Colors */
+.bg-medium-grey {
+  background-color: #303449;
+}
+
+.bg-dark-grey {
+  background-color: #232534;
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+* {
+  box-sizing: border: box;
+}
+
+body {
+  color: white;
+  font-family: 'Roboto', arial, sans-serif;
+}
+
+#topnav {
+  z-index: 10;
+  position: fixed;
+  height: 90px;
+  width: 100%;
+}
+
+#sidebar {
+  min-height: 100vh;
+}
+
+.sidebar-labels {
+  color: #6D7DF6;
+}
+
+
+
+
+.nav-link {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #696C80;
+}
+
+.nav-link:hover {
+  color: #8F91A2;
+}
+
+.carousel-overlay {
+  z-index: 8;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  z-index: 9;
+  opacity: 1;
+}
+
+.custom-carousel-control {
+  border-radius: 50%;
+  color: white;
+  font-size: 3em;
+}
+
+#content {
+  position: relative;
+  top: 90px;
+}
+
+#promo-carousel {
+  height: 420px !important;
+}
+
+#promo-carousel .carousel-inner {
+  height: inherit !important;
+}
+
+#powered-by {
+  width: 140px;
+  height: auto;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+
+
+
+
+}
+
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+  #sidebar-container {
+    position: fixed;
+    top: 90px;
+  }
+
+
+
+}
+
+
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+
+
+
+
+}
+
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+
+
+
+
+}
