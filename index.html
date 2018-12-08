@@ -8,17 +8,28 @@
     <!-- CSS -->
     <link rel="stylesheet" href="js/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="fonts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="js/plugins/slick-carousel/slick.css">
+    <link rel="stylesheet" href="js/plugins/slick-carousel/slick-theme.css">
+    <link rel="stylesheet" href="js/plugins/loaders/loaders.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Movie Flex</title>
   </head>
   <body class="bg-medium-grey">
+
+
+    <div class="page-overlay bg-dark-grey d-flex justify-content-center align-items-center">
+      <div class="loader">
+        <div class="cube-transition"><div></div><div></div></div>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-sm navbar-dark bg-medium-grey" id="topnav">
       <!-- Navbar brand -->
       <nav class="navbar navbar-dark bg-medium-grey">
         <a class="navbar-brand" href="javascript:void(0)">
           <img src="images/brand.png" width="50" height="50" class="d-inline-block align-middle" alt="">
-          <span class="font-weight-bold">Movie Flex</span>
+          <span class="lead font-weight-bold">Movie Flex</span>
         </a>
       </nav>
 
@@ -26,10 +37,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse bg-medium-grey" id="topnav-content">
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <div class="collapse navbar-collapse bg-medium-grey justify-content-center" id="topnav-content">
+        <form class="ml-md-5 p-0 form-inline justify-content-end" id="search-form">
+          <input class="form-control m-0 border-0 rounded-0" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-dark m-0 border-0 rounded-0" id="search-btn" type="submit">Search</button>
         </form>
       </div>
     </nav>
@@ -38,18 +49,18 @@
       <div class="row">
         <div class="p-0 d-none d-md-inline col-md-3 col-lg-3 col-xl-2" id="sidebar-container">
           <div class="px-4 bg-dark-grey" id="sidebar">
-            <p class="sidebar-labels pt-4 mb-0 font-weight-bold">BROWSE</p>
+            <p class="sidebar-labels pt-5 mb-1 font-weight-bold">BROWSE</p>
             <nav class="nav flex-column">
-              <a class="nav-link active" href="#">Discover</a>
-              <a class="nav-link" href="#">New Release</a>
-              <a class="nav-link" href="#">Trending</a>
-              <a class="nav-link disabled" href="#">Coming Soon</a>
-              <a class="nav-link disabled" href="#">Reviews</a>
+              <a class="nav-link active" href="discover"><i class="fas fa-compass"></i> Discover</a>
+              <a class="nav-link" href="new-releases"><i class="fas fa-bolt"></i> New Release</a>
+              <a class="nav-link" href="trending"><i class="fas fa-fire"></i> Trending</a>
+              <a class="nav-link" href="comming-soon"><i class="fas fa-gem"></i> Coming Soon</a>
+              <a class="nav-link" href="reviews"><i class="fas fa-comments"></i> Reviews</a>
             </nav>
 
-            <p class="sidebar-labels pt-4 mb-0 font-weight-bold">CATEGORIES</p>
+            <p class="sidebar-labels pt-5 mb-1 font-weight-bold">CATEGORIES</p>
             <nav class="nav flex-column">
-              <a class="nav-link active" href="#">Active</a>
+              <a class="nav-link" href="#">Active</a>
               <a class="nav-link" href="#">Link</a>
               <a class="nav-link" href="#">Link</a>
               <a class="nav-link disabled" href="#">Disabled</a>
@@ -93,33 +104,293 @@
             </div>
             <!-- END Hero Slider -->
 
-            <div class="container">
+            <div class="container-fluid">
+              <!-- Content Type Selection Tabs -
+              <div class="row mt-3">
+                <div class="col-12">
+                  <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">TV Shows</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              - END Tabs -->
 
-              <h1>Hello, world! It looks like it is working now</h1>
-              asdfasdf asdfsdf
+              <div class="row section my-5">
+                <div class="col-10 offset-1">
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                  <h2 class="section-headings">Discover</h2>
+                  <p>This most popular shows jljalsdjfasdf</p>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                  <div class="titles-slider">
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, animi! Non esse fuga officiis delectus autem quos ex, inventore iure, necessitatibus et quasi, rerum modi. Ipsam, velit laudantium excepturi a.</p>
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- END row -->
+
+              <div class="row section my-5">
+                <div class="col-10 offset-1">
+
+                  <h2 class="section-headings">New Releases</h2>
+                  <p>This most popular shows jljalsdjfasdf</p>
+
+                  <div class="titles-slider">
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- END row -->
+
+              <div class="row section my-5">
+                <div class="col-10 offset-1">
+
+                  <h2 class="section-headings">Trending</h2>
+                  <p>This most popular shows jljalsdjfasdf</p>
+
+                  <div class="titles-slider">
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+
+                    <div class="title">
+                      <a href="#show-movie">
+                        <div class="title-img-container">
+                          <div class="title-rating"><i class="fas fa-star"></i> <span>9.4</span></div>
+                          <img data-lazy="https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg" alt="">
+                        </div>
+                        <p class="title-name">Venom</p>
+                        <span class="title-category">Action | Thriller</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- END row -->
+
+
+
+
+
+
+
+
 
 
 
@@ -144,6 +415,7 @@
     <script src="js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <script src="js/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/plugins/sticky-kit/jquery.sticky-kit.min.js"></script>
+    <script src="js/plugins/slick-carousel/slick.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

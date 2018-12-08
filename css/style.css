@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+.page-overlay {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  transition: all .8s;
+}
+
+.cube-transition > div {
+  background-color: #ed154f;
+}
+
 /* Colors */
 .bg-medium-grey {
   background-color: #303449;
@@ -24,6 +38,7 @@ body {
   position: fixed;
   height: 90px;
   width: 100%;
+  box-shadow: 5px 5px 35px rgba(0, 0, 0, .2);
 }
 
 #sidebar {
@@ -31,20 +46,55 @@ body {
 }
 
 .sidebar-labels {
-  color: #6D7DF6;
+  color: #6d7df6;
+}
+
+#search-form {
+  width: 40%;
+}
+
+#search-form input {
+  border-radius: 25px !important;
+  width: 80%;
+  height: 40px;
+  background-color: rgba(35, 37, 52, .8);
+}
+
+#search-form button {
+  width: 20%;
+  height: 40px;
+  border-radius: 25px !important;
+  background-color: #6d7df6;
+  opacity: .8;
+}
+
+#search-form button:hover {
+  opacity: 1;
 }
 
 
-
+#sidebar > nav a.nav-link {
+  font-size: 1.2em;
+}
 
 .nav-link {
-  font-size: 1.2em;
   font-weight: 600;
-  color: #696C80;
+  color: #696c80;
 }
 
 .nav-link:hover {
-  color: #8F91A2;
+  color: #8f91a2;
+}
+
+.nav-link.active {
+  border-radius: 50px;
+  background-color: #1e202c;
+  color: #afb1c2;
+}
+
+.nav-link > i {
+  margin-right: 8px;
+  color: #afb1c2;
 }
 
 .carousel-overlay {
@@ -57,21 +107,89 @@ body {
 }
 
 .carousel-control-prev,
-.carousel-control-next {
+.carousel-control-next,
+.carousel-indicators {
   z-index: 9;
-  opacity: 1;
+  opacity: .9;
 }
 
 .custom-carousel-control {
   border-radius: 50%;
   color: white;
-  font-size: 3em;
+  font-size: 2.5em;
 }
 
 #content {
   position: relative;
   top: 90px;
 }
+
+.section-headings {
+  color: #6d7df6;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-left: 15px;
+  margin-right: 15px;
+  opacity: .8;
+  transition: all .3s;
+}
+
+.title:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.title a {
+  outline: none !important;
+  color: white;
+  text-decoration: none;
+}
+
+.title-img-container {
+  position: relative;
+}
+
+.title-rating {
+  position: absolute;
+  top: 15px;
+  left: 0px;
+  padding: 2px 5px;
+  background: rgba(0, 0, 0, .8);
+  color: white;
+}
+
+.title-rating i {
+  font-size: .6em;
+}
+
+.title-img-container img {
+  width: 100%;
+  height: auto;
+}
+
+.title-name {
+  margin: 5px 0px 0px 0px;
+  color: #afb1c2;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.title-category {
+  font-size: .8em;
+}
+
+
+
+
+
+
+
+
+
 
 #promo-carousel {
   height: 420px !important;
