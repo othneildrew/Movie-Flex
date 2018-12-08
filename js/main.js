@@ -1,14 +1,10 @@
 $(function() {
 
-
-  function hidePageOverlay() {
-    $('.page-overlay').fadeOut(300).css({'visibility': 'hidden'});
-  }
+  init();
 
   hidePageOverlay();
 
 
-  init();
 
 
 
@@ -23,27 +19,41 @@ $(function() {
     $('.titles-slider').slick({
       lazyLoad: 'ondemand',
       infinite: false,
-      speed: 600,
+      speed: 800,
       slidesToShow: 6,
       slidesToScroll: 1,
       responsive: [{
-          breakpoint: 1024,
+          breakpoint: 1200,
           settings: {
             slidesToShow: 6,
             slidesToScroll: 1,
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 5,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 992,
           settings: {
             slidesToShow: 4,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 3,
             slidesToScroll: 1
           }
         },
         {
-          breakpoint: 480,
+          breakpoint: 576,
           settings: {
-            slidesToShow: 1,
+            slidesToShow: 2,
             slidesToScroll: 1
           }
         }
@@ -58,6 +68,10 @@ $(function() {
     console.log('init function called');
 
 
+  }
+
+  function hidePageOverlay() {
+    $('.page-overlay').fadeOut(300).css({'visibility': 'hidden'});
   }
 
 
