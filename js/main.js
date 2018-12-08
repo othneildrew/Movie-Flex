@@ -54,8 +54,6 @@ $(function() {
 
     fetchMovies('#now-playing', 'movie/now_playing?page=1&language=en-US&api_key=');
 
-    fetchMovies('#popular', 'movie/popular?page=1&language=en-US&api_key=');
-
     fetchMovies('#upcoming', 'movie/upcoming?page=1&language=en-US&api_key=');
 
     fetchMovies('#trending', 'trending/movie/day?api_key=');

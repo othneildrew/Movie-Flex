@@ -38,7 +38,7 @@ body {
   position: fixed;
   height: 90px;
   width: 100%;
-  box-shadow: 5px 5px 35px rgba(0, 0, 0, .2);
+  box-shadow: 8px 8px 40px rgba(0, 0, 0, .25);
 }
 
 #sidebar {
@@ -57,7 +57,7 @@ body {
   border-radius: 25px !important;
   width: 80%;
   height: 40px;
-  background-color: rgba(255, 255, 255, .05);
+  background-color: rgba(255, 255, 255, .04);
 }
 
 #search-form button {
@@ -102,8 +102,8 @@ body {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .4);
+  height: inherit;
+  background-color: rgba(68, 0, 14, .4);
 }
 
 .carousel-control-prev,
@@ -157,8 +157,8 @@ body {
   top: 20px;
   left: 0px;
   padding: 2px 5px;
-  background: rgba(0, 0, 0, .8);
-  color: white;
+  background: rgba(0, 0, 0, .9);
+  color: #ff2a55;
 }
 
 .title-rating i {
@@ -181,7 +181,11 @@ body {
   font-size: .8em;
 }
 
-
+button.slick-prev.slick-arrow::before,
+button.slick-next.slick-arrow::before {
+  font-size: 35px;
+  opacity: .9;
+}
 
 
 
@@ -191,10 +195,14 @@ body {
 
 
 #promo-carousel {
-  height: 420px !important;
+  height: 25vh !important;
 }
 
 #promo-carousel .carousel-inner {
+  height: inherit !important;
+}
+
+#promo-carousel > .carousel-inner > .carousel-item > img {
   height: inherit !important;
 }
 
@@ -207,9 +215,9 @@ body {
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 
-
-
-
+  #promo-carousel {
+    height: 35vh !important;
+  }
 
 }
 
@@ -233,7 +241,9 @@ body {
 @media (min-width: 992px) {
 
 
-
+  #promo-carousel {
+    height: 45vh !important;
+  }
 
 
 }
