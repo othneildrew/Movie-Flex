@@ -1,13 +1,17 @@
 $(function() {
 
-  //getPage('browse');
-  getPage('movie');
-  hidePageOverlay();
+  getPage('browse');
+  //getPage('movie');
+  //hidePageOverlay();
 
 
   $('#content').on('click', '.title', function() {
     let id = $(this).children('a').attr('id');
     getMovieDetails(id);
+  });
+
+  $('#content').on('click', '#back-btn', function() {
+    getPage('browse');
   });
 
 
@@ -18,7 +22,7 @@ $(function() {
 
   function getPage(pageName) {
 
-    //$('#content').removeClass('animated slideOutRight');
+    //$('#content').removeClass('animated slideInRight');
 
     $.ajax({
       url: '../' + pageName + '.html',
