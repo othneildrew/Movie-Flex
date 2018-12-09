@@ -1,7 +1,8 @@
 $(function() {
 
   let searchQuery,
-      requestMovieId;
+      requestMovieId,
+      searchResults;
 
   getPage('browse');
   //getPage('search');
@@ -9,21 +10,25 @@ $(function() {
 
   $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
     getPage('browse');
+    clearSearch();
   });
 
   $('#content').on('click', '.title, .carousel-item-meta', function() {
     requestMovieId = $(this).children('a').attr('id');
     getPage('movie');
-    $('#search-input').val('');
+    clearSearch();
   });
 
   $('#content').on('click', '#back-btn', function() {
     getPage('browse');
   });
 
-  $('.navbar').on('submit', '#search-form', function() {
+  $('.navbar').on('submit', '#search-form', function(e) {
+    e.preventDefault();
     searchQuery = $(this).children('input#search-input').val();
-    getPage('search');
+    if(searchQuery !== '') {
+      getPage('search');
+    }
   });
 
   $('#search-input').click(function() {
@@ -32,7 +37,9 @@ $(function() {
 
 
 
-
+  function clearSearch() {
+    $('#search-input').val('');
+  }
 
 
 
@@ -71,8 +78,6 @@ $(function() {
 
 
   function searchMovie(q) {
-    console.log(q);
-
     let settings = {
       async: true,
       crossDomain: true,
@@ -81,17 +86,16 @@ $(function() {
       headers: {},
       data: '{}'
     }
+    searchResults = 0;
 
     $.ajax(settings).done(function(response) {
-      $('#total-results').text(response.total_results);
       $.each(response.results, function(key, value) {
+        searchResults += 1;
         if(value.poster_path !== null || value.backdrop_path !== null) {
           $('#search-results').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
         }
-
       });
-
-      //console.log(response);
+      $('#total-results').text(searchResults);
     });
 
 
