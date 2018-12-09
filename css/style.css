@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Monoton');
+
+/* Extra small devices (portrait phones, less than 576px) */
+* {
+  box-sizing: border: box;
+}
+
+body {
+  color: white;
+  font-family: 'Roboto', arial, sans-serif, serif;
+}
+
+#website-name {
+  font-family: 'Monoton';
+}
 
 .page-overlay {
   z-index: 100;
@@ -11,7 +25,7 @@
 }
 
 .cube-transition > div {
-  background-color: #ed154f;
+  background-color: #ff2a55;
 }
 
 /* Colors */
@@ -27,14 +41,16 @@
   color: #ff2a55;
 }
 
-/* Extra small devices (portrait phones, less than 576px) */
-* {
-  box-sizing: border: box;
+.btn-primary {
+  border: none;
+  border-radius: 40px;
+  background-color: #ff2a55;
+  font-size: 1.2em;
 }
 
-body {
-  color: white;
-  font-family: 'Roboto', arial, sans-serif;
+.btn-primary:hover {
+  background-color: #ff2a55;
+  opacity: .9;
 }
 
 #topnav {
@@ -72,7 +88,7 @@ button.navbar-toggler {
   width: 65%;
   height: 40px;
   background-color: rgba(255, 255, 255, .04);
-  color: #ff2a55;
+  color: white;
 }
 
 #search-form button {
@@ -112,15 +128,6 @@ button.navbar-toggler {
   color: #afb1c2;
 }
 
-.carousel-overlay {
-  z-index: 8;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: inherit;
-  background-color: rgba(68, 0, 14, .4);
-}
-
 .carousel-control-prev,
 .carousel-control-next,
 .carousel-indicators {
@@ -132,6 +139,39 @@ button.navbar-toggler {
   border-radius: 50%;
   color: white;
   font-size: 2.5em;
+}
+
+.carousel-indicators {
+  visibility: hidden;
+}
+
+.carousel-item {
+  position: relative;
+  height: inherit;
+}
+
+.carousel-item-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(68, 0, 14, .4);
+  background-image: -webkit-linear-gradient(left, #ff2a55 0%, #4f070f 25%, #000000 45%, #000000 50%, #000000 55%, #4f070f 75%, #ff2a55 100%);
+  background-image: -o-linear-gradient(left, #ff2a55 0%, #4f070f 25%, #000000 45%, #000000 50%, #000000 55%, #4f070f 75%, #ff2a55 100%);
+  background-image: linear-gradient(to right, #ff2a55 0%, #4f070f 25%, #000000 45%, #000000 50%, #000000 55%, #4f070f 75%, #ff2a55 100%);
+  opacity: .2;
+}
+
+.carousel-item-meta {
+  z-index: 9;
+  position: absolute;
+  bottom: 8%;
+  width: 100%;
+  text-align: center;
+}
+
+.carousel-item-name {
+  font-size: 1.4em;
+  font-weight: 600;
 }
 
 #content {
@@ -203,7 +243,7 @@ button.slick-next.slick-arrow::before {
 }
 
 #promo-carousel {
-  height: 25vh !important;
+  height: 35vh !important;
 }
 
 #promo-carousel .carousel-inner {
@@ -236,7 +276,10 @@ button.slick-next.slick-arrow::before {
   width: 100%;
   height: inherit;
   background-color: black;
-  opacity: .6;
+  background-image: -webkit-linear-gradient(left, #ff2a55 0%, #4f070f 25%, #000000 45%, #000000 50%, #000000 55%, #4f070f 75%, #ff2a55 100%);
+  background-image: -o-linear-gradient(left, #ff2a55 0%, #4f070f 25%, #000000 45%, #000000 50%, #000000 55%, #4f070f 75%, #ff2a55 100%);
+  background-image: linear-gradient(to right, #ff2a55 0%, #4f070f 25%, #000000 45%, #000000 50%, #000000 55%, #4f070f 75%, #ff2a55 100%);
+  opacity: .4;
 }
 
 .hero > #hero-back-btn {
@@ -270,7 +313,7 @@ button.slick-next.slick-arrow::before {
 @media (min-width: 576px) {
 
   #promo-carousel {
-    height: 35vh !important;
+    height: 45vh !important;
   }
 
   #search-form {
@@ -279,6 +322,20 @@ button.slick-next.slick-arrow::before {
 
   #topnav-content {
     margin-top: 0px;
+  }
+
+  .carousel-item-meta {
+    z-index: 9;
+    position: absolute;
+    left: 10%;
+    bottom: 8%;
+    width: 100%;
+    text-align: left;
+  }
+
+  .carousel-item-name {
+    font-size: 2em;
+    font-weight: 600;
   }
 }
 
@@ -308,6 +365,10 @@ button.slick-next.slick-arrow::before {
     width: 25%;
   }
 
+  .carousel-indicators {
+    visibility: visible;
+  }
+
 }
 
 
@@ -317,7 +378,7 @@ button.slick-next.slick-arrow::before {
 
 
   #promo-carousel {
-    height: 45vh !important;
+    height: 60vh !important;
   }
 
   .hero {

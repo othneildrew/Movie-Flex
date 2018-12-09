@@ -11,7 +11,7 @@ $(function() {
     getPage('browse');
   });
 
-  $('#content').on('click', '.title', function() {
+  $('#content').on('click', '.title, .carousel-item-meta', function() {
     requestMovieId = $(this).children('a').attr('id');
     getPage('movie');
     $('#search-input').val('');
@@ -95,6 +95,36 @@ $(function() {
     });
 
 
+  }
+
+  function fetchPopular() {
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'movie/popular?&language=en-US&page=1&api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+      $.each(response.results, function(key, value) {
+
+
+        if(key < 3) {
+
+          if(key === 0) {
+            activeClass = ' active';
+          } else {
+            activeClass = '';
+          }
+
+          $('.carousel-inner').append('<div class="carousel-item'+ activeClass +'"><div class="carousel-item-overlay"></div><div class="carousel-item-meta"><p class="text-truncate carousel-item-name px-5 px-sm-0">'+ value.original_title +'</p><a class="btn btn-primary py-2 px-4" id="'+ value.id +'" href="javascript:void(0);">Learn more</a></div><img class="d-block w-100" src="https://image.tmdb.org/t/p/original/'+ value.backdrop_path +'" alt="'+ value.original_title +'"></div>');
+
+          $('.carousel').carousel();
+        }
+      });
+    });
   }
 
 
@@ -192,6 +222,8 @@ $(function() {
   }
 
   function loadCatalog() {
+    fetchPopular();
+
     fetchMovies('#now-playing', 'movie/now_playing?page=1&language=en-US&api_key=');
 
     fetchMovies('#upcoming', 'movie/upcoming?page=1&language=en-US&api_key=');
