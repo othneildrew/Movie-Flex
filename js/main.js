@@ -4,10 +4,12 @@ $(function() {
   //getPage('movie');
   //hidePageOverlay();
 
+  let requestMovieId;
+
 
   $('#content').on('click', '.title', function() {
-    let id = $(this).children('a').attr('id');
-    getMovieDetails(id);
+    requestMovieId = $(this).children('a').attr('id');
+    getPage('movie');
   });
 
   $('#content').on('click', '#back-btn', function() {
@@ -35,6 +37,9 @@ $(function() {
             slickInit();
             loadCatalog();
             hidePageOverlay();
+            break;
+          case 'movie':
+            getMovieDetails(requestMovieId);
             break;
           default:
             console.log('Page loading function not working' + pageName + 'was last requested attempt.');
@@ -80,10 +85,13 @@ $(function() {
     }
 
     $.ajax(settings).done(function(response) {
+      let imgURL = 'https://image.tmdb.org/t/p/original/' + response.poster_path;
 
-      console.log(response);
+      $('#movie-name').text(response.original_title);
+      $('#movie-summary').text(response.overview);
+      $('#movie-poster').attr('src', imgURL).attr('alt', response.original_title);
+      $('#movie-rating').text(response.vote_average);
 
-      getPage('movie');
 
 
 
