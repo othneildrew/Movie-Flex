@@ -6,6 +6,7 @@
 }
 
 body {
+  position: relative;
   color: white;
   font-family: 'Roboto', arial, sans-serif, serif;
 }

@@ -36,6 +36,12 @@ $(function() {
   })
 
 
+  $('body').scrollspy({
+    target: '#sidebar',
+    offset: 200
+  });
+
+
 
   function clearSearch() {
     $('#search-input').val('');
