@@ -25,7 +25,7 @@ $(function() {
     //$('#content').removeClass('animated slideInRight');
 
     $.ajax({
-      url: '../' + pageName + '.html',
+      url: './' + pageName + '.html',
       method: 'GET',
       success: function(data) {
         $('#content').html(data);
