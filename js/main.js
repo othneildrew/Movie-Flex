@@ -1,16 +1,99 @@
 $(function() {
 
-  init();
+  //getPage('browse');
+  getPage('movie');
+  hidePageOverlay();
+
+
+  $('#content').on('click', '.title', function() {
+    let id = $(this).children('a').attr('id');
+    getMovieDetails(id);
+  });
 
 
 
 
-  function init() {
-    // Initialize slick carousel
+
+
+
+  function getPage(pageName) {
+
+    //$('#content').removeClass('animated slideOutRight');
+
+    $.ajax({
+      url: '../' + pageName + '.html',
+      method: 'GET',
+      success: function(data) {
+        $('#content').html(data);
+
+        switch(pageName) {
+          case 'browse':
+            slickInit();
+            loadCatalog();
+            hidePageOverlay();
+            break;
+          default:
+            console.log('Page loading function not working' + pageName + 'was last requested attempt.');
+        }
+
+        //$('#content').addClass('animated slideInLeft');
+      }
+    });
+
+  }
+
+
+
+
+  function fetchMovies(sliderID, requestURL) {
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + requestURL + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+      $.each(response.results, function(key, value) {
+        //slideIndex++;
+        $(sliderID + '-slider').slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+      });
+    });
+  } // END fetchMovies
+
+
+
+  function getMovieDetails(movieID) {
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'movie/' + movieID + '?language=en-US&api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+
+      console.log(response);
+
+      getPage('movie');
+
+
+
+    });
+
+  }
+
+
+
+
+  function slickInit() {
     $('.titles-slider').slick({
-      lazyLoad: 'ondemand',
       infinite: false,
-      speed: 600,
+      speed: 400,
       slidesToShow: 6,
       slidesToScroll: 6,
       responsive: [{
@@ -50,8 +133,9 @@ $(function() {
         }
       ]
     });
+  }
 
-
+  function loadCatalog() {
     fetchMovies('#now-playing', 'movie/now_playing?page=1&language=en-US&api_key=');
 
     fetchMovies('#upcoming', 'movie/upcoming?page=1&language=en-US&api_key=');
@@ -59,74 +143,11 @@ $(function() {
     fetchMovies('#trending', 'trending/movie/day?api_key=');
 
     fetchMovies('#top-rated', 'movie/top_rated?page=1&language=en-US&api_key=');
-
-    hidePageOverlay();
   }
-
-
-
-
-
-
 
   function hidePageOverlay() {
-    $('.page-overlay').fadeOut(300).css({'visibility': 'hidden'});
+    $('.page-overlay').css({'visibility': 'hidden'});
   }
-
-
-
-
-
-
-
-
-
-
-  function fetchMovies(sliderID, requestURL) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + requestURL + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
-
-    $.ajax(settings).done(function(response) {
-      $.each(response.results, function(key, value) {
-        //slideIndex++;
-        $(sliderID + '-slider').slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img data-lazy="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
-      });
-    });
-  } // END fetchMovies
-
-  function getMovieDetails(movieID) {
-    console.log('Function called, movie id is === ' + movieID);
-
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'movie/' + movieID + '?language=en-US&api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
-
-    $.ajax(settings).done(function(response) {
-      console.log(response);
-
-
-
-    });
-
-  }
-
-
-  $('.titles-slider').on('click', '.title', function() {
-    let id = $(this).children('a').attr('id');
-    getMovieDetails(id);
-  });
-
 
 
 

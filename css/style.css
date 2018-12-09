@@ -23,6 +23,10 @@
   background-color: #0d131f;
 }
 
+.text-pink {
+  color: #ff2a55;
+}
+
 /* Extra small devices (portrait phones, less than 576px) */
 * {
   box-sizing: border: box;
@@ -187,13 +191,6 @@ button.slick-next.slick-arrow::before {
   opacity: .9;
 }
 
-
-
-
-
-
-
-
 #promo-carousel {
   height: 25vh !important;
 }
@@ -212,12 +209,60 @@ button.slick-next.slick-arrow::before {
 }
 
 
+.hero {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 40vh;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+.hero > .hero-overlay {
+  z-index: 3;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: inherit;
+  background-color: black;
+  opacity: .6;
+}
+
+.hero > #hero-back-btn {
+  z-index: 4;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 2em;
+  opacity: .8;
+}
+
+.hero > #hero-back-btn:hover {
+  opacity: 1;
+}
+
+.hero > img {
+  z-index: 2;
+  width: 100%;
+  height: inherit;
+}
+
+.hero > .hero-meta {
+  z-index: 4;
+  position: absolute;
+  left: 30px;
+  bottom: 20px;
+}
+
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 
   #promo-carousel {
     height: 35vh !important;
   }
+
+
 
 }
 
@@ -231,7 +276,9 @@ button.slick-next.slick-arrow::before {
     top: 90px;
   }
 
-
+  .hero {
+    height: 45vh;
+  }
 
 }
 
@@ -245,6 +292,13 @@ button.slick-next.slick-arrow::before {
     height: 45vh !important;
   }
 
+  .hero {
+    height: 400px;
+  }
+
+  .hero > img {
+    height: auto;
+  }
 
 }
 
