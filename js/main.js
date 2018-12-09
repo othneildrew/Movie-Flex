@@ -1,20 +1,34 @@
 $(function() {
 
+  let searchQuery,
+      requestMovieId;
+
   getPage('browse');
-  //getPage('movie');
+  //getPage('search');
   //hidePageOverlay();
 
-  let requestMovieId;
-
+  $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
+    getPage('browse');
+  });
 
   $('#content').on('click', '.title', function() {
     requestMovieId = $(this).children('a').attr('id');
     getPage('movie');
+    $('#search-input').val('');
   });
 
   $('#content').on('click', '#back-btn', function() {
     getPage('browse');
   });
+
+  $('.navbar').on('submit', '#search-form', function() {
+    searchQuery = $(this).children('input#search-input').val();
+    getPage('search');
+  });
+
+  $('#search-input').click(function() {
+    $(this).select();
+  })
 
 
 
@@ -41,8 +55,11 @@ $(function() {
           case 'movie':
             getMovieDetails(requestMovieId);
             break;
+          case 'search':
+            searchMovie(searchQuery);
+            break;
           default:
-            console.log('Page loading function not working' + pageName + 'was last requested attempt.');
+            alert('There was a problem loading the ' + pageName + ' page. Please try again later.');
         }
 
         //$('#content').addClass('animated slideInLeft');
@@ -52,6 +69,33 @@ $(function() {
   }
 
 
+
+  function searchMovie(q) {
+    console.log(q);
+
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'search/movie?query=' + q + '&language=en-US&page=1&include_adult=true&api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+      $('#total-results').text(response.total_results);
+      $.each(response.results, function(key, value) {
+        if(value.poster_path !== null || value.backdrop_path !== null) {
+          $('#search-results').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+        }
+
+      });
+
+      //console.log(response);
+    });
+
+
+  }
 
 
   function fetchMovies(sliderID, requestURL) {
@@ -85,7 +129,7 @@ $(function() {
     }
 
     $.ajax(settings).done(function(response) {
-      let imgURL = 'https://image.tmdb.org/t/p/original/' + response.poster_path;
+      let imgURL = 'https://image.tmdb.org/t/p/original/' + response.backdrop_path;
 
       $('#movie-name').text(response.original_title);
       $('#movie-summary').text(response.overview);
