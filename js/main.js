@@ -96,8 +96,8 @@ $(function() {
 
     $.ajax(settings).done(function(response) {
       $.each(response.results, function(key, value) {
-        searchResults += 1;
         if(value.poster_path !== null || value.backdrop_path !== null) {
+          searchResults += 1;
           $('#search-results').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
         }
       });
@@ -169,6 +169,8 @@ $(function() {
     }
 
     $.ajax(settings).done(function(response) {
+      $(window).scrollTop(0);
+
       let imgURL = 'https://image.tmdb.org/t/p/original/' + response.backdrop_path;
 
       $('#movie-name').text(response.original_title);
