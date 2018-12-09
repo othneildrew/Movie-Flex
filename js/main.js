@@ -15,9 +15,12 @@ $(function() {
   //getPage('search');
   //hidePageOverlay();
 
-  $('body').on('click', '.navbar-brand', function() {
-    getPage('browse');
-    clearSearch();
+  $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
+    // If not already on browse page, retrive browse page
+    if(!$('#content > #promo-carousel').length) {
+      getPage('browse');
+      clearSearch();
+    }
   });
 
   $('#content').on('click', '.title, .carousel-item-meta', function() {
