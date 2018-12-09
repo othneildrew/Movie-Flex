@@ -100,10 +100,32 @@ $(function() {
     });
   } // END fetchMovies
 
+  function getMovieDetails(movieID) {
+    console.log('Function called, movie id is === ' + movieID);
+
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'movie/' + movieID + '?language=en-US&api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+      console.log(response);
 
 
 
+    });
 
+  }
+
+
+  $('.titles-slider').on('click', '.title', function() {
+    let id = $(this).children('a').attr('id');
+    getMovieDetails(id);
+  });
 
 
 
