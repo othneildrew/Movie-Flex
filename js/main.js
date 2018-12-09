@@ -1,14 +1,21 @@
 $(function() {
 
+  let scroll = new SmoothScroll('#sidebar > nav > a.nav-link', {
+    easing: 'easeInOutQuart',
+    header: '#topnav',
+    offset: 90
+  });
+
   let searchQuery,
       requestMovieId,
-      searchResults;
+      searchResults,
+      prevPage;
 
   getPage('browse');
   //getPage('search');
   //hidePageOverlay();
 
-  $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
+  $('body').on('click', '.navbar-brand', function() {
     getPage('browse');
     clearSearch();
   });
@@ -151,7 +158,7 @@ $(function() {
     $.ajax(settings).done(function(response) {
       $.each(response.results, function(key, value) {
         //slideIndex++;
-        $(sliderID + '-slider').slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+        $(sliderID).slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
       });
     });
   } // END fetchMovies
