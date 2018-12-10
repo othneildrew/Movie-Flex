@@ -97,7 +97,7 @@ $(function() {
     let settings = {
       async: true,
       crossDomain: true,
-      url: BASE_URL + 'search/movie?query=' + q + '&language=en-US&page=1&include_adult=true&api_key=' + API_KEY,
+      url: BASE_URL + 'search/movie?query=' + q + '&language=en-US&page=1&include_adult=false&api_key=' + API_KEY,
       method: 'GET',
       headers: {},
       data: '{}'
@@ -121,7 +121,7 @@ $(function() {
     let settings = {
       async: true,
       crossDomain: true,
-      url: BASE_URL + 'movie/popular?&language=en-US&page=1&api_key=' + API_KEY,
+      url: BASE_URL + 'movie/popular?&language=en-US&page=3&api_key=' + API_KEY,
       method: 'GET',
       headers: {},
       data: '{}'
@@ -139,7 +139,7 @@ $(function() {
             activeClass = '';
           }
 
-          $('.carousel-inner').append('<div class="carousel-item'+ activeClass +'"><div class="carousel-item-overlay"></div><div class="carousel-item-meta"><p class="text-truncate carousel-item-name px-5 px-sm-0">'+ value.original_title +'</p><a class="btn btn-primary py-2 px-4" id="'+ value.id +'" href="javascript:void(0);">Learn more</a></div><img class="d-block w-100" src="https://image.tmdb.org/t/p/original/'+ value.backdrop_path +'" alt="'+ value.original_title +'"></div>');
+          $('.carousel-inner').append('<div class="carousel-item'+ activeClass +'"><div class="carousel-item-overlay"></div><div class="carousel-item-meta"><p class="text-truncate carousel-item-name px-5 px-sm-0">'+ value.original_title +'</p><a class="btn btn-primary py-2 px-4" id="'+ value.id +'" href="javascript:void(0);">About this movie</a></div><img class="d-block w-100" src="https://image.tmdb.org/t/p/original/'+ value.backdrop_path +'" alt="'+ value.original_title +'"></div>');
 
           $('.carousel').carousel();
         }
