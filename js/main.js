@@ -185,7 +185,7 @@ $(function() {
 
     $.ajax(settings).done(function(response) {
       if(response.results.length > 0) {
-        $('#movie-preview').append('<div class="iframe-container"><iframe src="https://www.youtube.com/embed/'+ response.results[0].key +'" allowfullscreen></iframe></div>');
+        $('#movie-preview').append('<div class="iframe-container"><iframe src="https://www.youtube-nocookie.com/embed/'+ response.results[0].key +'" allowfullscreen></iframe></div>');
       } else {
         $('#movie-preview').append('<p class="lead">We we\'re unable to find a video preview for this movie :/</p>');
       }
@@ -204,19 +204,41 @@ $(function() {
     }
 
     $.ajax(settings).done(function(response) {
-      if(response.results.length < 1) {
-        $('#review-container').append('<p class="lead">No reviews found for this movie :/</p>');
-      } else {
+      if(response.results.length > 0) {
         $.each(response.results, function(key, value) {
           if(key < 5) {
             $('#review-container').append('<blockquote class="blockquote review mt-4"><p class="mb-0">'+ value.content +'</p><footer class="blockquote-footer">'+ value.author +'</footer</blockquote>');
           }
         });
+      } else {
+        $('#review-container').append('<p class="lead">No reviews found for this movie :/</p>');
       }
 
     });
   }
 
+  function getCast(movieID) {
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'movie/' + movieID + '/credits?api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+      if(response.cast.length > 0) {
+        $.each(response.cast, function(key, value) {
+          if(value.profile_path.length > 0) {
+            $('#cast').slick('slickAdd', '<div class="title cast-member mb-4"><a id="'+ value.cast_id +'" href="javascript:void(0)"><div class="title-img-container"><img src="https://image.tmdb.org/t/p/w342/'+ value.profile_path +'" alt="'+ value.name +'"></div><p class="title-name text-truncate">'+ value.name +'</p><span>"'+ value.character +'"</span></a></div>');
+          }
+        });
+      } else {
+        $('#review-container').append('<p class="lead">No cast found for this movie :/</p>');
+      }
+    });
+  }
 
 
   function getMovieDetails(movieID) {
@@ -257,6 +279,8 @@ $(function() {
     fetchMovies('#related-movies', 'movie/'+ movieID +'/similar?page=1&language=en-US&api_key=');
 
     getTrailer(movieID);
+
+    getCast(movieID);
 
     getReviews(movieID);
 
