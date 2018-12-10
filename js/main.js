@@ -1,19 +1,20 @@
 $(function() {
 
-  let searchQuery,
-      requestID,
-      searchResults,
-      movieCredits;
-
-  let ajaxSettings = {
-
+  const settings = {
+    async: true,
+    crossDomain: true,
+    url: '',
+    method: 'GET',
+    headers: {},
+    data: '{}'
   }
+
+  let searchQuery, requestID, searchResults, movieCredits;
 
   getPage('browse');
   smoothScrollInit();
 
-
-
+  /* Event Listeners */
   $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
     // If not already on browse page, retrive browse page
     if(!$('#content > #promo-carousel').length) {
@@ -24,12 +25,7 @@ $(function() {
 
   $('#content').on('click', '.title, .carousel-item-meta, .cast-member', function() {
     requestID = $(this).children('a').attr('id');
-
-    if($(this).hasClass('cast-member')) {
-      getPage('cast');
-    } else {
-      getPage('movie');
-    }
+    $(this).hasClass('cast-member') ? getPage('cast') : getPage('movie');
     clearSearch();
   });
 
@@ -40,33 +36,25 @@ $(function() {
   $('.navbar').on('submit', '#search-form', function(e) {
     e.preventDefault();
     searchQuery = $(this).children('input#search-input').val();
-    if(searchQuery !== '') {
-      getPage('search');
-    }
+    searchQuery !== '' ? getPage('search') : '' ;
   });
 
   $('#search-input').click(function() {
     $(this).select();
   })
 
-
   $('body').scrollspy({
     target: '#sidebar',
     offset: 200
   });
 
-
-
+  /* Functions */
   function clearSearch() {
     $('#search-input').val('');
   }
 
-
-
   function getPage(pageName) {
-
-    //$('#content').removeClass('animated slideInRight');
-
+    // TODO: Add page transition to remove page from DOM
     $.ajax({
       url: './pages/' + pageName + '.html',
       method: 'GET',
@@ -92,62 +80,35 @@ $(function() {
           default:
             alert('There was a problem loading the ' + pageName + ' page. Please try again later.');
         }
-
-        //$('#content').addClass('animated slideInLeft');
+        // TODO: Add page transition to load new page to DOM
       }
     });
-
   }
 
-
-
   function searchMovie(q) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'search/movie?query=' + q + '&language=en-US&page=1&include_adult=false&api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
+    settings.url = BASE_URL + 'search/movie?query=' + q + '&language=en-US&page=1&include_adult=false&api_key=' + API_KEY;
     searchResults = 0;
 
     $.ajax(settings).done(function(response) {
       $.each(response.results, function(key, value) {
         if(value.poster_path !== null || value.backdrop_path !== null) {
           searchResults += 1;
-          $('#search-results').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+          $('#search-results').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="'+ BASE_IMG_URL +'w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
         }
       });
       $('#total-results').text(searchResults);
     });
-
-
   }
 
   function fetchPopular() {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'movie/popular?&language=en-US&page=3&api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
+    settings.url = BASE_URL + 'movie/popular?&language=en-US&page=3&api_key=' + API_KEY;
 
     $.ajax(settings).done(function(response) {
       $.each(response.results, function(key, value) {
-
-
         if(key < 3) {
+          key === 0 ? activeClass = ' active' : activeClass = '';
 
-          if(key === 0) {
-            activeClass = ' active';
-          } else {
-            activeClass = '';
-          }
-
-          $('.carousel-inner').append('<div class="carousel-item'+ activeClass +'"><div class="carousel-item-overlay"></div><div class="carousel-item-meta"><p class="text-truncate carousel-item-name px-5 px-sm-0">'+ value.original_title +'</p><a class="btn btn-primary py-2 px-4" id="'+ value.id +'" href="javascript:void(0);">About this movie</a></div><img class="d-block w-100" src="https://image.tmdb.org/t/p/original/'+ value.backdrop_path +'" alt="'+ value.original_title +'"></div>');
+          $('.carousel-inner').append('<div class="carousel-item'+ activeClass +'"><div class="carousel-item-overlay"></div><div class="carousel-item-meta"><p class="text-truncate carousel-item-name px-5 px-sm-0">'+ value.original_title +'</p><a class="btn btn-primary py-2 px-4" id="'+ value.id +'" href="javascript:void(0);">About this movie</a></div><img class="d-block w-100" src="'+ BASE_IMG_URL +'original/'+ value.backdrop_path +'" alt="'+ value.original_title +'"></div>');
 
           $('.carousel').carousel();
         }
@@ -158,37 +119,21 @@ $(function() {
 
 
   function fetchMovies(sliderID, requestURL) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + requestURL + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
+    settings.url = BASE_URL + requestURL + API_KEY;
 
     $.ajax(settings).done(function(response) {
       if(response.results.length > 1) {
         $.each(response.results, function(key, value) {
-          //slideIndex++;
-          $(sliderID).slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+          $(sliderID).slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="'+ BASE_IMG_URL +'w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
         });
       } else {
         $(sliderID).append('<p class="lead">No movies found, we\'re sorry :/</p>');
       }
-
     });
-  } // END fetchMovies
+  }
 
   function getTrailer(movieID) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'movie/' + movieID + '/videos?language=en-US&api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
+    settings.url = BASE_URL + 'movie/' + movieID + '/videos?language=en-US&api_key=' + API_KEY;
 
     $.ajax(settings).done(function(response) {
       if(response.results.length > 0) {
@@ -196,19 +141,11 @@ $(function() {
       } else {
         $('#movie-preview').append('<p class="lead">We we\'re unable to find a video preview for this movie :/</p>');
       }
-
     });
   }
 
   function getReviews(movieID) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'movie/' + movieID + '/reviews?language=en-US&page=1&api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
+    settings.url = BASE_URL + 'movie/' + movieID + '/reviews?language=en-US&page=1&api_key=' + API_KEY;
 
     $.ajax(settings).done(function(response) {
       if(response.results.length > 0) {
@@ -220,86 +157,60 @@ $(function() {
       } else {
         $('#review-container').append('<p class="lead">No reviews found for this movie :/</p>');
       }
-
     });
   }
 
   function getCast(movieID) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'movie/' + movieID + '/credits?api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
+    settings.url = BASE_URL + 'movie/' + movieID + '/credits?api_key=' + API_KEY;
 
     $.ajax(settings).done(function(response) {
       if(response.cast.length > 0) {
         $.each(response.cast, function(key, value) {
           if(value.profile_path) {
-            $('#cast').slick('slickAdd', '<div class="title cast-member mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><img src="https://image.tmdb.org/t/p/w342/'+ value.profile_path +'" alt="'+ value.name +'"></div><p class="title-name text-truncate">'+ value.name +'</p><span>"'+ value.character +'"</span></a></div>');
+            $('#cast').slick('slickAdd', '<div class="title cast-member mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><img src="'+ BASE_IMG_URL +'w342/'+ value.profile_path +'" alt="'+ value.name +'"></div><p class="title-name text-truncate">'+ value.name +'</p><span>"'+ value.character +'"</span></a></div>');
           }
         });
       } else {
-        $('#review-container').append('<p class="lead">No cast found for this movie :/</p>');
+        $('#cast').append('<p class="lead">No cast found for this movie :/</p>');
       }
     });
   }
 
   function getCastMember(memberID) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'person/'+ memberID +'?language=en-US&api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
-
+    settings.url = BASE_URL + 'person/'+ memberID +'?language=en-US&api_key=' + API_KEY;
     movieCredits = 0;
 
     // Get Cast Member Details
     $.ajax(settings).done(function(response) {
-      $('#cast-member-photo').html('<img src="https://image.tmdb.org/t/p/w342/'+ response.profile_path +'" alt="'+ response.name +'">');
+      $('#cast-member-photo').html('<img src="'+ BASE_IMG_URL +'w342/'+ response.profile_path +'" alt="'+ response.name +'">');
       $('#cast-name').text(response.name);
       $('#birth-place').text(response.place_of_birth);
     });
 
 
-    settings = {
-      url: BASE_URL + 'person/'+ memberID +'/movie_credits?language=en-US&api_key=' + API_KEY,
-    }
+    settings.url = BASE_URL + 'person/'+ memberID +'/movie_credits?language=en-US&api_key=' + API_KEY;
 
     // Get movie credits
     $.ajax(settings).done(function(response) {
       $.each(response.cast, function(key, value) {
         if(value.poster_path !== null) {
           movieCredits += 1;
-          $('#movie-credits').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+          $('#movie-credits').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="'+ BASE_IMG_URL +'w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
         }
       });
       $('#credit-results').text(movieCredits);
     });
   }
 
-
   function getMovieDetails(movieID) {
-    let settings = {
-      async: true,
-      crossDomain: true,
-      url: BASE_URL + 'movie/' + movieID + '?language=en-US&api_key=' + API_KEY,
-      method: 'GET',
-      headers: {},
-      data: '{}'
-    }
+    settings.url = BASE_URL + 'movie/' + movieID + '?language=en-US&api_key=' + API_KEY;
 
     $.ajax(settings).done(function(response) {
       $(window).scrollTop(0);
 
       let categories = '';
       let countries = '';
-      let imgURL = 'https://image.tmdb.org/t/p/original/' + response.backdrop_path;
+      let imgURL = ''+ BASE_IMG_URL +'original/' + response.backdrop_path;
 
       $('#movie-name').text(response.original_title);
       $('#movie-status').text(response.status);
@@ -312,25 +223,20 @@ $(function() {
       $.each(response.production_countries, function(key, value) {
         countries += '<li>'+ value.name +' ('+ value.iso_3166_1 +')</li>';
       });
-      $('#movie-production-companies').append(countries);
+
       $.each(response.genres, function(key, value) {
         categories += value.name + ' | ';
       });
+
+      $('#movie-production-companies').append(countries);
       $('#movie-categories').text(categories.substring(0, categories.length - 2));
     });
 
     fetchMovies('#related-movies', 'movie/'+ movieID +'/similar?page=1&language=en-US&api_key=');
-
     getTrailer(movieID);
-
     getCast(movieID);
-
     getReviews(movieID);
-
   }
-
-
-
 
   function slickInit() {
     $('.titles-slider').slick({
@@ -387,20 +293,14 @@ $(function() {
 
   function loadCatalog() {
     fetchPopular();
-
     fetchMovies('#now-playing', 'movie/now_playing?page=1&language=en-US&api_key=');
-
     fetchMovies('#upcoming', 'movie/upcoming?page=1&language=en-US&api_key=');
-
     fetchMovies('#trending', 'trending/movie/day?api_key=');
-
     fetchMovies('#top-rated', 'movie/top_rated?page=1&language=en-US&api_key=');
   }
 
   function hidePageOverlay() {
     $('.page-overlay').css({'visibility': 'hidden'});
   }
-
-
 
 });

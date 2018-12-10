@@ -22,7 +22,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  transition: all .8s;
+  transition: all 2s;
 }
 
 .cube-transition > div {
@@ -103,7 +103,6 @@ button.navbar-toggler {
 #search-form button:hover {
   opacity: 1;
 }
-
 
 #sidebar > nav a.nav-link {
   font-size: 1.2em;
@@ -244,15 +243,15 @@ button.slick-next.slick-arrow::before {
 }
 
 #promo-carousel {
-  height: 35vh !important;
+  height: 35vh;
 }
 
 #promo-carousel .carousel-inner {
-  height: inherit !important;
+  height: inherit;
 }
 
 #promo-carousel > .carousel-inner > .carousel-item > img {
-  height: inherit !important;
+  height: inherit;
 }
 
 #powered-by {
@@ -329,7 +328,6 @@ button.slick-next.slick-arrow::before {
   padding-top: 75%;
 }
 
-
 .review {
   border-left: 3px solid #ff2a55;
   padding-left: 8px;
@@ -341,9 +339,8 @@ button.slick-next.slick-arrow::before {
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-
   #promo-carousel {
-    height: 45vh !important;
+    height: 45vh;
   }
 
   #search-form {
@@ -373,11 +370,8 @@ button.slick-next.slick-arrow::before {
   }
 }
 
-
-
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
   #sidebar-container {
     position: fixed;
     top: 90px;
@@ -398,17 +392,12 @@ button.slick-next.slick-arrow::before {
   .carousel-indicators {
     visibility: visible;
   }
-
 }
-
-
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-
-
   #promo-carousel {
-    height: 80vh !important;
+    height: 80vh;
   }
 
   .hero {
@@ -423,18 +412,11 @@ button.slick-next.slick-arrow::before {
   #search-form {
     width: 60%;
   }
-
 }
-
-
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-
   #search-form {
     width: 45%;
   }
-
-
-
 }
