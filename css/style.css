@@ -22,7 +22,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  transition: all 2s;
+  transition: all .8s;
 }
 
 .cube-transition > div {

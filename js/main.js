@@ -14,7 +14,7 @@ $(function() {
   getPage('browse');
   smoothScrollInit();
 
-  /* Event Listeners */
+  /* Event Listeners ======================================== */
   $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
     // If not already on browse page, retrive browse page
     if(!$('#content > #promo-carousel').length) {
@@ -48,7 +48,7 @@ $(function() {
     offset: 200
   });
 
-  /* Functions */
+  /* Functions ======================================== */
   function clearSearch() {
     $('#search-input').val('');
   }
@@ -115,8 +115,6 @@ $(function() {
       });
     });
   }
-
-
 
   function fetchMovies(sliderID, requestURL) {
     settings.url = BASE_URL + requestURL + API_KEY;
@@ -187,13 +185,12 @@ $(function() {
       $('#birth-place').text(response.place_of_birth);
     });
 
-
     settings.url = BASE_URL + 'person/'+ memberID +'/movie_credits?language=en-US&api_key=' + API_KEY;
 
     // Get movie credits
     $.ajax(settings).done(function(response) {
       $.each(response.cast, function(key, value) {
-        if(value.poster_path !== null) {
+        if(value.poster_path) {
           movieCredits += 1;
           $('#movie-credits').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="'+ BASE_IMG_URL +'w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
         }
@@ -218,7 +215,7 @@ $(function() {
       $('#movie-poster').attr('src', imgURL).attr('alt', response.original_title);
       $('#movie-rating').text(response.vote_average);
       $('#movie-release').text(response.release_date.substring(0, 4));
-      $('#movie-runtime').text(response.runtime + ' mins');
+      response.runtime !== null ? $('#movie-runtime').text(response.runtime + ' mins') : '';
 
       $.each(response.production_countries, function(key, value) {
         countries += '<li>'+ value.name +' ('+ value.iso_3166_1 +')</li>';
@@ -228,7 +225,12 @@ $(function() {
         categories += value.name + ' | ';
       });
 
-      $('#movie-production-companies').append(countries);
+      if(countries.length > 0) {
+        $('#movie-production-companies').append(countries);
+      } else {
+        $('#movie-production-companies').append('<li>None found</li>');
+      }
+
       $('#movie-categories').text(categories.substring(0, categories.length - 2));
     });
 
