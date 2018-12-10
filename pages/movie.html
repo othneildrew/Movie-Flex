@@ -9,7 +9,7 @@
     <p class="lead m-0">
       <i class="fas fa-star text-warning"></i> <span id="movie-rating"></span>/10</p>
     <h1 class="font-weight-bold"  id="movie-name"></h1>
-    <p class="lead">2018 &bull; Horror / Fantasy / Thriller / Family / Mystery &bull; 1hr 45min</p>
+    <p class="lead"><span id="movie-release"></span> &bull; <span id="movie-categories"></span> &bull; <span id="movie-runtime"></span></p>
   </div>
 </div>
 
@@ -20,46 +20,64 @@
     <div class="col-10 offset-1">
 
       <div class="row">
-        <div class="col-12 col-md-6">
+        <!-- Column -->
+        <div class="col-12 col-lg-10">
+          <p class="lead text-pink">Status: <span id="movie-status"></span></p>
+          <!-- YouTube Trailer -->
+          <div class="row">
+            <div class="col-12 col-md-8" id="movie-preview">
+              <h2 class="section-headings mb-3">Watch Trailer</h2>
+            </div>
+          </div>
+          <!-- END YouTube Trailer -->
+
+          <!-- Photos -->
+          <div class="row section my-5">
+            <div class="col-12">
+              <h2 class="section-headings mb-3">Photos</h2>
+              <div class="titles-slider" id="photos"></div>
+            </div>
+          </div>
+          <!-- END Photos -->
+
+
+          <!-- Movie Info -->
           <h2 class="section-headings mb-3">Summary</h2>
           <p id="movie-summary"></p>
 
 
+          <p class="lead font-weight-bold mt-4 mb-0">Production Countries</p>
+          <ul id="movie-production-companies"></ul>
+          <!-- END Movie Info -->
 
-          <div class="row">
-            <div class="col-12">
-              <p class="lead text-pink mt-3">Production Countries</p>
-              <ul>
-                <li>Canada</li>
-                <li>India</li>
-                <li>United States of America</li>
-              </ul>
-            </div>
-            <div class="col-6">
-              <p class="section-headings mb-3">Summary</p>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-12 col-md-6">
-          <p class="lead text-success m-0">Revenue</p>
-          <p class="display-4">$29,950,000</p>
         </div>
+        <!-- END Column -->
+
       </div>
     </div>
 
-  </div>
 
+  </div><!-- END row -->
 
-
-
+  <!-- Related Movies -->
   <div class="row section my-5">
     <div class="col-10 offset-1">
       <h2 class="section-headings mb-3">Related Movies</h2>
-      <div class="titles-slider" id="related-movies-slider"></div>
+      <div class="titles-slider" id="related-movies"></div>
     </div>
-  </div><!-- END row -->
+  </div>
+  <!-- END Related Movies -->
 
+  <!-- Reviews -->
+  <div class="row section my-5">
+    <div class="col-10 offset-1" id="review-container">
+      <h2 class="section-headings mb-3">Recent Reviews</h2>
+    </div>
+  </div>
+  <!-- END Reviews -->
+
+  <!-- Footer -->
   <footer class="d-flex p-4 justify-content-center">
     <a href="https://www.themoviedb.org/documentation/api" target="_blank">
       <img id="powered-by" src="images/tmdb-logo.png" alt="Powered By The Movie DB">

@@ -12,7 +12,7 @@ $(function() {
       prevPage;
 
   getPage('browse');
-  //getPage('search');
+  //getPage('movie');
   //hidePageOverlay();
 
   $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
@@ -76,6 +76,7 @@ $(function() {
             hidePageOverlay();
             break;
           case 'movie':
+            slickInit();
             getMovieDetails(requestMovieId);
             break;
           case 'search':
@@ -148,6 +149,7 @@ $(function() {
   }
 
 
+
   function fetchMovies(sliderID, requestURL) {
     let settings = {
       async: true,
@@ -159,12 +161,61 @@ $(function() {
     }
 
     $.ajax(settings).done(function(response) {
-      $.each(response.results, function(key, value) {
-        //slideIndex++;
-        $(sliderID).slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
-      });
+      if(response.results.length > 1) {
+        $.each(response.results, function(key, value) {
+          //slideIndex++;
+          $(sliderID).slick('slickAdd', '<div class="title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt=""></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+        });
+      } else {
+        $(sliderID).append('<p class="lead">No movies found, we\'re sorry :/</p>');
+      }
+
     });
   } // END fetchMovies
+
+  function getTrailer(movieID) {
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'movie/' + movieID + '/videos?language=en-US&api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+      if(response.results.length > 0) {
+        $('#movie-preview').append('<div class="iframe-container"><iframe src="https://www.youtube.com/embed/'+ response.results[0].key +'" allowfullscreen></iframe></div>');
+      } else {
+        $('#movie-preview').append('<p class="lead">We we\'re unable to find a video preview for this movie :/</p>');
+      }
+
+    });
+  }
+
+  function getReviews(movieID) {
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'movie/' + movieID + '/reviews?language=en-US&page=1&api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    $.ajax(settings).done(function(response) {
+      if(response.results.length < 1) {
+        $('#review-container').append('<p class="lead">No reviews found for this movie :/</p>');
+      } else {
+        $.each(response.results, function(key, value) {
+          if(key < 5) {
+            $('#review-container').append('<blockquote class="blockquote review mt-4"><p class="mb-0">'+ value.content +'</p><footer class="blockquote-footer">'+ value.author +'</footer</blockquote>');
+          }
+        });
+      }
+
+    });
+  }
 
 
 
@@ -181,17 +232,33 @@ $(function() {
     $.ajax(settings).done(function(response) {
       $(window).scrollTop(0);
 
+      let categories = '';
+      let countries = '';
       let imgURL = 'https://image.tmdb.org/t/p/original/' + response.backdrop_path;
 
       $('#movie-name').text(response.original_title);
+      $('#movie-status').text(response.status);
       $('#movie-summary').text(response.overview);
       $('#movie-poster').attr('src', imgURL).attr('alt', response.original_title);
       $('#movie-rating').text(response.vote_average);
+      $('#movie-release').text(response.release_date.substring(0, 4));
+      $('#movie-runtime').text(response.runtime + ' mins');
 
-
-
-
+      $.each(response.production_countries, function(key, value) {
+        countries += '<li>'+ value.name +' ('+ value.iso_3166_1 +')</li>';
+      });
+      $('#movie-production-companies').append(countries);
+      $.each(response.genres, function(key, value) {
+        categories += value.name + ' | ';
+      });
+      $('#movie-categories').text(categories.substring(0, categories.length - 2));
     });
+
+    fetchMovies('#related-movies', 'movie/'+ movieID +'/similar?page=1&language=en-US&api_key=');
+
+    getTrailer(movieID);
+
+    getReviews(movieID);
 
   }
 
