@@ -54,12 +54,14 @@ $(function() {
   }
 
   function getPage(pageName) {
-    // TODO: Add page transition to remove page from DOM
+    $('#content').addClass('animated fadeOutRight');
+
     $.ajax({
       url: './pages/' + pageName + '.html',
       method: 'GET',
       success: function(data) {
         $('#content').html(data);
+        $('#content').removeClass('animated fadeOutRight');
 
         switch(pageName) {
           case 'browse':
@@ -80,7 +82,7 @@ $(function() {
           default:
             alert('There was a problem loading the ' + pageName + ' page. Please try again later.');
         }
-        // TODO: Add page transition to load new page to DOM
+        $('#content').addClass('animated fadeInRight');
       }
     });
   }
