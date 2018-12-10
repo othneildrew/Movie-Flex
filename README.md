@@ -6,7 +6,7 @@
 
 ![](https://raw.githubusercontent.com/othneildrew/othneildrew.github.io/master/images/projects/movie-flex.jpg)
 
-[View Demo of Movie Flex](https://othneildrew.com/Movie-Flex)
+[View Demo of Movie Flex](https://www.othneildrew.com/Movie-Flex)
 
 ## Installation
 
