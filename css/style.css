@@ -88,7 +88,7 @@ button.navbar-toggler {
   border-radius: 25px !important;
   width: 65%;
   height: 40px;
-  background-color: rgba(255, 255, 255, .04);
+  background-color: rgba(255, 255, 255, .08);
   color: white;
 }
 
@@ -97,7 +97,7 @@ button.navbar-toggler {
   height: 40px;
   border-radius: 25px !important;
   background-color: #ff2a55;
-  opacity: .8;
+  opacity: .9;
 }
 
 #search-form button:hover {
