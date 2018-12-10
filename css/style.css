@@ -286,7 +286,7 @@ button.slick-next.slick-arrow::before {
 .hero > #hero-back-btn {
   z-index: 4;
   position: absolute;
-  top: 30px;
+  top: 5px;
   left: 30px;
   font-size: 2em;
   opacity: .8;
@@ -323,6 +323,10 @@ button.slick-next.slick-arrow::before {
 
   #topnav-content {
     margin-top: 0px;
+  }
+
+  .hero > #hero-back-btn {
+    top: 30px;
   }
 
   .carousel-item-meta {
