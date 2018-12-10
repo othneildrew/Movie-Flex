@@ -237,7 +237,7 @@ $(function() {
     $.ajax(settings).done(function(response) {
       if(response.cast.length > 0) {
         $.each(response.cast, function(key, value) {
-          if(value.profile_path.length > 0) {
+          if(value.profile_path) {
             $('#cast').slick('slickAdd', '<div class="title cast-member mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><img src="https://image.tmdb.org/t/p/w342/'+ value.profile_path +'" alt="'+ value.name +'"></div><p class="title-name text-truncate">'+ value.name +'</p><span>"'+ value.character +'"</span></a></div>');
           }
         });
