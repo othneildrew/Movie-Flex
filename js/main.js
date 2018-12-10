@@ -1,19 +1,18 @@
 $(function() {
 
-  let scroll = new SmoothScroll('#sidebar > nav > a.nav-link', {
-    easing: 'easeInOutQuart',
-    header: '#topnav',
-    offset: 90
-  });
-
   let searchQuery,
-      requestMovieId,
+      requestID,
       searchResults,
-      prevPage;
+      movieCredits;
+
+  let ajaxSettings = {
+
+  }
 
   getPage('browse');
-  //getPage('movie');
-  //hidePageOverlay();
+  smoothScrollInit();
+
+
 
   $('body').on('click', '.navbar-brand, #sidebar > nav > a.nav-link', function() {
     // If not already on browse page, retrive browse page
@@ -23,9 +22,14 @@ $(function() {
     }
   });
 
-  $('#content').on('click', '.title, .carousel-item-meta', function() {
-    requestMovieId = $(this).children('a').attr('id');
-    getPage('movie');
+  $('#content').on('click', '.title, .carousel-item-meta, .cast-member', function() {
+    requestID = $(this).children('a').attr('id');
+
+    if($(this).hasClass('cast-member')) {
+      getPage('cast');
+    } else {
+      getPage('movie');
+    }
     clearSearch();
   });
 
@@ -77,10 +81,13 @@ $(function() {
             break;
           case 'movie':
             slickInit();
-            getMovieDetails(requestMovieId);
+            getMovieDetails(requestID);
             break;
           case 'search':
             searchMovie(searchQuery);
+            break;
+          case 'cast':
+            getCastMember(requestID);
             break;
           default:
             alert('There was a problem loading the ' + pageName + ' page. Please try again later.');
@@ -231,12 +238,48 @@ $(function() {
       if(response.cast.length > 0) {
         $.each(response.cast, function(key, value) {
           if(value.profile_path.length > 0) {
-            $('#cast').slick('slickAdd', '<div class="title cast-member mb-4"><a id="'+ value.cast_id +'" href="javascript:void(0)"><div class="title-img-container"><img src="https://image.tmdb.org/t/p/w342/'+ value.profile_path +'" alt="'+ value.name +'"></div><p class="title-name text-truncate">'+ value.name +'</p><span>"'+ value.character +'"</span></a></div>');
+            $('#cast').slick('slickAdd', '<div class="title cast-member mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><img src="https://image.tmdb.org/t/p/w342/'+ value.profile_path +'" alt="'+ value.name +'"></div><p class="title-name text-truncate">'+ value.name +'</p><span>"'+ value.character +'"</span></a></div>');
           }
         });
       } else {
         $('#review-container').append('<p class="lead">No cast found for this movie :/</p>');
       }
+    });
+  }
+
+  function getCastMember(memberID) {
+    let settings = {
+      async: true,
+      crossDomain: true,
+      url: BASE_URL + 'person/'+ memberID +'?language=en-US&api_key=' + API_KEY,
+      method: 'GET',
+      headers: {},
+      data: '{}'
+    }
+
+    movieCredits = 0;
+
+    // Get Cast Member Details
+    $.ajax(settings).done(function(response) {
+      $('#cast-member-photo').html('<img src="https://image.tmdb.org/t/p/w342/'+ response.profile_path +'" alt="'+ response.name +'">');
+      $('#cast-name').text(response.name);
+      $('#birth-place').text(response.place_of_birth);
+    });
+
+
+    settings = {
+      url: BASE_URL + 'person/'+ memberID +'/movie_credits?language=en-US&api_key=' + API_KEY,
+    }
+
+    // Get movie credits
+    $.ajax(settings).done(function(response) {
+      $.each(response.cast, function(key, value) {
+        if(value.poster_path !== null) {
+          movieCredits += 1;
+          $('#movie-credits').append('<div class="col-6 col-sm-4 col-md-3 col-lg-2 m-0 title mb-4"><a id="'+ value.id +'" href="javascript:void(0)"><div class="title-img-container"><div class="title-rating"><i class="fas fa-star"></i> <span>'+ value.vote_average +'</span></div><img src="https://image.tmdb.org/t/p/w342/'+ value.poster_path +'" alt="'+ value.original_title +'"></div><p class="title-name text-truncate">'+ value.original_title +'</p></a></div>');
+        }
+      });
+      $('#credit-results').text(movieCredits);
     });
   }
 
@@ -331,6 +374,14 @@ $(function() {
           }
         }
       ]
+    });
+  }
+
+  function smoothScrollInit() {
+    new SmoothScroll('#sidebar > nav > a.nav-link', {
+      easing: 'easeInOutQuart',
+      header: '#topnav',
+      offset: 90
     });
   }
 

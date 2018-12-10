@@ -335,6 +335,10 @@ button.slick-next.slick-arrow::before {
   padding-left: 8px;
 }
 
+.cast-member-info img {
+  height: 280px;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 
